@@ -1,5 +1,17 @@
 in
 
+push 5
+push [ax+5]
+pop [-6]
+pop ax
+
+je :NoRoots
+
+
+NoRoots:
+
+OneRoot:
+
+NoRoots:
+
 hlt
-push [7]
-mal

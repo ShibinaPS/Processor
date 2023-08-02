@@ -14,11 +14,12 @@ typedef struct String
 {
       char* str_ptr  = nullptr;
       size_t str_len = 0;
+      size_t num_tag = 0;
 }str;
 
 //===========================================================================================================
 
-typedef struct ProcDebug
+typedef struct Processor
 {
       FILE* mainfile    = nullptr;
       char* buffer_ptr  = nullptr;
@@ -27,6 +28,7 @@ typedef struct ProcDebug
       size_t chars_num   = 0;
 
       String* structs_arr = nullptr;
+      String* tags_arr    = nullptr;
 
       int error_code     = 0;
 
@@ -45,39 +47,49 @@ enum ProcErrors
       ERROR_POP_NUM                 = 7,
       ERROR_LEXICAL_UNIT            = 8,
       ERROR_HLT_COUNT               = 9,
+      ERROR_REG_PART                = 10,
+      ERROR_SIGN_PART               = 11,
+      ERROR_UNKNOWN_SIGN            = 12,
+      ERROR_NUM_PART                = 13,
+      ERROR_TAG_AGAIN               = 14,
+      ERROR_TAG                     = 15,
 };
 
 //===========================================================================================================
 
-int proc_ctor(ProcDebug* proc, const char* filename);
+int proc_ctor(Processor* proc, const char* filename);
 
 //===========================================================================================================
 
-void file_open(ProcDebug* proc, const char* filename);
+void file_open(Processor* proc, const char* filename);
 
 //===========================================================================================================
 
-void chars_buffer(ProcDebug* proc, FILE* filename);
+void chars_buffer(Processor* proc, FILE* filename);
 
 //===========================================================================================================
 
-void num_of_chars(ProcDebug* proc, const char* filename);
+void num_of_chars(Processor* proc, const char* filename);
 
 //===========================================================================================================
 
-void num_of_strings(ProcDebug* proc);
+void num_of_strings(Processor* proc);
 
 //===========================================================================================================
 
-void fill_structs_arr(ProcDebug* proc);
+void fill_structs_arr(Processor* proc);
 
 //===========================================================================================================
 
-void lexical_analysis(ProcDebug* proc);
+void lexical_analysis(Processor* proc);
 
 //===========================================================================================================
 
-void proc_dtor(ProcDebug* proc);
+int tag_analysis(Processor* proc, const char* token, size_t string);
+
+//===========================================================================================================
+
+void proc_dtor(Processor* proc);
 
 //===========================================================================================================
 
