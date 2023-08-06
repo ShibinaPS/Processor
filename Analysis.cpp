@@ -1,254 +1,207 @@
 #include "FileProcessing.h"
 
-//===========================================================================================================
-
-const char* cmds[] = {"in", "out", "push", "pop", "hlt", "add", "sub", "mul", "div"};
-
-const char* jmp[] = {"jmp", "ja", "jae", "jb", "jbe", "jc", "jcxz", "je", "jg", "jge", 
-                  "jl", "jle", "jna", "jnae", "jnb", "jnbe", "jnc", "jne", "jng", "jnge", 
-                  "jnl", "jnle", "jno", "jnp", "jns", "jnz", "jo", "jp", "jpe", "jpo", "js", "jz"};
-
-const char* args[] = {"ax", "bx", "cx", "dx"};
-
 //=========================================================================================================== 
 
 void lexical_analysis(Processor* proc)
 {
-      size_t hlt_count = 0;
-      size_t i         = 0; // Номер строки
+      const char* cmd[] = {"ax", "bx", "cx", "dx", "in", "out", "push", "pop", "hlt", "add", "sub", "mul", "div", "call", "jmp", 
+                        "je", "jge"};
+
+      size_t hlt_counter = 0;
+      size_t i           = 0;
 
       while (i < proc->strings_num) 
       {
-            size_t pop_n = 0; // Наличие pop, потому что на аргументы данной команды есть некоторые ограничения
+            char* string = (char*)calloc(proc->structs_arr[i].str_len, sizeof(char));
+            strcpy(string, proc->structs_arr[i].str_ptr);
 
-            const char* token = strtok(proc->structs_arr[i].str_ptr, " "); // Выделила первую лексему в строке
+            const char* token = strtok(string, " "); // Выделяю первую лексему в строке
 
-            for(size_t num_l = 1; token != NULL; token = strtok(NULL, " "), num_l++)
-            { // При каждом вхождении в цикл рассматриваю отдельную лексему: команду или её аргумент.
-                  
+            for(size_t num_l = 1; token != NULL; token = strtok(NULL, " "), num_l++) // При каждом вхождении в цикл рассматриваю отдельную лексему
+            {
                   // printf("%d\n", num_l);
                   // printf("%s\n", token);
+                  size_t flag = 0;
 
-                  size_t flag = 0; // Значение 1 будет говорить об успешно считанн(ом) аргументе или (ой) команде
-
-                  if(num_l % 2 != 0) // Т.е. если это команда или метка
+                  if(token[0] == '-')
                   {
-                        for (size_t j = 0; j < (proc->strings_num)/2; j++) // Если метка
+                        for(size_t j = 1; j < strlen(token); j++)
                         {
-                              if (strcmp(proc->tags_arr[j].str_ptr, token) == 0)
+                              if(!(isdigit(token[j])))
                               {
-                                    flag = 1;
+                                    printf("Lexical error in %d line in the lexeme part '%s'! There should be a number.", i+1, token);
+                                    exit(ERROR_LEXICAL_PART);
                               }
                         }
-
-                        for (size_t m = 0; m < sizeof(cmds)/sizeof(cmds[0]); m++) // Если команда
-                        {
-                              if (strcmp(cmds[m], token) == 0)
-                              {
-                                    if(num_l == 3) // Запись кода в одну строку
-                                    {
-                                          printf("Error in %d string. You should write different command in the different lines!\n", i+1);
-                                          exit(ERROR_ONE_STRING);
-                                    }
-
-                                    if (m == 4)
-                                    {
-                                          hlt_count++;
-                                    }
-
-                                    else if (m == 3)
-                                    {
-                                          pop_n = 1;
-                                    }
-
-                                    flag = 1;
-                              }
-                        }
-
-                        if(flag == 0) // Чтобы не заходить сюда, если уже нашли команду
-                        {
-                              for(size_t s = 0; s < sizeof(jmp)/sizeof(jmp[0]); s++) // Если это jmp
-                              {
-                                    if(strcmp(jmp[s], token) == 0)
-                                    {
-                                          token = strtok(NULL, " :"); // Считываю следующий за jmp элемент, т.е. метку
-                                          
-                                          flag = tag_analysis(proc, token, i);
-                                    }
-                              }
-                        }
+                        continue; // Перехожу к другому токену
                   }
 
-                  else // Т.е. если это аргумент.
-                  {                        
-                        for(size_t m = 0; m < sizeof(cmds)/sizeof(cmds[0]); m++) // К примеру, если после in идёт pop
+                  for(size_t j = 0; j < sizeof(cmd)/sizeof(cmd[0]); j++) 
+                  {
+                        if(strcmp(cmd[j], token) == 0)
                         {
-                              if (strcmp(cmds[m], token) == 0)
+                              if (j == 8)
                               {
-                                    printf("Error in %d string. You should write different commands in the different lines!\n", i+1);
-                                    exit(ERROR_ONE_STRING);
-                              }
-                        }
-
-                        for(size_t r = 0; r < sizeof(args)/sizeof(args[0]); r++) // Если регистр.
-                        {
-                              if (strcmp(args[r], token) == 0)
-                              {
-                                    flag = 1;
-                              }
-                        }
-                        
-                        if(isdigit(*token)) // Положительные и отрицательные числа.
-                        {
-                              if (pop_n == 1)
-                              {
-                                    printf("The command '%s' can not contain a number as an argument.\n", cmds[3]);
-                                    exit(ERROR_POP_NUM);
+                                    hlt_counter++;
                               }
 
                               flag = 1;
+                              break; // Выхожу из цикла по массиву указателей
                         }
+                  }
 
-                        else if(flag == 0)// Ситауции типа: [ax], [5], [ax+5], где прибавляемое число обязательно положительное.
-                        {    // Выделила этот участок отдельно из-за условия положительности чисел, прибавляемых к регистрам.
+                  if(flag == 1)
+                  {
+                        continue; // Перехожу к новому токену
+                  }
 
-                              char* arg = (char*)malloc(sizeof(char)*(strlen(token) - 2));
-                              // Здесь уже работаю с копией, потому что иначе функция strtok перестраивается
-                              // и становится невозможным считать 3-ий элемент строки, если такой имеется
-                              strncpy(arg, token + 1, strlen(token) - 2);
-                              arg[strlen(arg) - 1] = '\0';
+                  else if(token[0] == '[')
+                  {
+                        size_t n = 1;
+                        char* intro = (char*)calloc(strlen(token) - 2, sizeof(char));
+                        size_t m = 0;
 
-                              for(size_t r = 0; r < sizeof(args)/sizeof(args[0]); r++) // Если отдельно регистр, ex.: [ax].
+                        while(token[n] != ']')
+                        {
+                              if (token[n] == '+')
                               {
-                                    if (strcmp(args[r], arg) == 0)
+                                    for(size_t j = 0; j < sizeof(cmd)/sizeof(cmd[0]); j++)
                                     {
-                                          flag = 1;
+                                          if(strcmp(intro, cmd[j]) == 0)
+                                          {
+                                                strncpy(intro, "", m);
+                                                m = 0;
+                                                n++;
+                                                flag = 1;
+                                                break; // Выхожу из цикла for, чтобы далее проверить вторую часть на число
+                                          }
+                                    }
+
+                                    if (flag == 0)
+                                    {
+                                          printf("Lexical error in %d line in the lexeme part '%s' between []!", i+1, intro);
+                                          exit(ERROR_LEXICAL_PART);
+                                          
                                     }
                               }
 
-                              if (isdigit(*arg) && (arg) > 0) // Если отдельно число, ex.: [5].
+                              else if (token[n] == '-') // Две ситуации: либо отр. число, либо ex.: [ax-5]
                               {
-                                    if (pop_n == 1)
+                                    for(size_t j = 0; j < sizeof(cmd)/sizeof(cmd[0]); j++)
                                     {
-                                          printf("The command '%s' can not contain a [number] as an argument.\n", cmds[3]);
-                                          exit(ERROR_POP_NUM);
-                                    }
-
-                                    flag = 1;
-                              }
-
-                              else // Рассматриваю выражения, ex.: [ax+5]
-                              {
-                                    //=====================================================================
-
-                                    char* reg = (char*)malloc(sizeof(char)*2); // Отдельно регистр 
-                                    strncpy(reg, arg, 2);
-                                    reg[strlen(reg) - 1] = '\0'; // Чтобы убрать ']'
-
-                                    for(size_t r = 0; r < sizeof(args)/sizeof(args[0]); r++)
-                                    {
-                                          if (strcmp(args[r], reg) == 0)
+                                          if(strcmp(intro, cmd[j]) == 0)
                                           {
                                                 flag = 1;
                                           }
                                     }
-                                    
-                                    if(flag == 0)
+
+                                    if (flag == 1)
                                     {
-                                          printf("Lexical error in %d string in position '%s'", i+1, reg);
-                                          exit(ERROR_REG_PART);
+                                          printf("Lexical error in %d line in the lexeme part '%c'! The token '%s' cannot contain a sign minus.", i+1, token[n], token);
+                                          exit(ERROR_LEXICAL_PART);
                                     }
 
-                                    flag = 0;
+                                    printf("Lexical error in %d line in the %d token between []! A negative number is not allowed.", i+1, num_l);
+                                    exit(ERROR_LEXICAL_PART);
+                              }
 
-                                    //=====================================================================
+                              else
+                              {
+                                    strncpy(intro + m, token + n, 1);
+                                    n++;
+                                    m++;
+                              }
+                        }
 
-                                    char* sign = (char*)malloc(sizeof(char)); // Отдельно знак
-                                    strncpy(sign, arg + 2, 1);
-                                    sign[strlen(sign)-2] = '\0';
-
-                                    if(strcmp(sign, "-") == 0)
+                        if(flag == 1) // Т.е. ситуация со сложным выражением внутри скобок => осталось проверить на число
+                        {
+                              for(size_t j = 0; j < strlen(intro); j++)
+                              {
+                                    if(!(isdigit(intro[j])))
                                     {
-                                          printf("Error in %d string! The sign '-' is unacceptable in the expression %s contained inside []!", i+1, arg);
-                                          exit(ERROR_SIGN_PART);
+                                          printf("Lexical error in %d line in the lexeme part '%s'! There should be a number.", i+1, intro);
+                                          exit(ERROR_LEXICAL_PART);
                                     }
+                              }
 
-                                    else if(strcmp(sign, "+") == 0)
+                              if(token[n+1] == ']')
+                              {
+                                    printf("Lexical error in %d line! Too many '%c'.", i+1, token[n+1]);
+                                    exit(ERROR_LEXICAL_PART);
+                              }
+                              continue; // Переход к новому токену
+                        }
+
+                        else // Внутри [] должно быть число (> 0) || регистр 
+                        {
+                              for(size_t j = 0; j < sizeof(cmd)/sizeof(cmd[0]); j++) // Если регистр
+                              {
+                                    if(strcmp(intro, cmd[j]) == 0)
                                     {
                                           flag = 1;
+                                          break;
                                     }
+                              }
 
-                                    else
+                              if (flag == 1)
+                              {
+                                    if(token[n+1] == ']')
                                     {
-                                          printf("Unknown sign '%s' in %d string in the expression '%s' contained inside []! Be more attentive.", sign, i+1, arg);
-                                          exit(ERROR_UNKNOWN_SIGN);
+                                          printf("Lexical error in %d line! Too many '%c'.", i+1, token[n+1]);
+                                          exit(ERROR_LEXICAL_PART);
                                     }
+                                    continue; // Переход к новому токену
+                              }
 
-                                    flag = 0;
-
-                                    //=====================================================================
-
-                                    char* num = (char*)malloc(sizeof(char)*(strlen(arg) - 3)); // Отдельно число
-                                    strncpy(num, arg + 3, strlen(arg) - 3);
-                                    num[strlen(num)-2] = '\0';
-
-                                    if(isdigit(*num))
+                              else
+                              {
+                                    for(size_t j = 0; j < strlen(intro); j++)
                                     {
-                                          flag = 1;
+                                          if(!(isdigit(intro[j]))) // Все ли цифры
+                                          {
+                                                printf("Lexical error in %d line in the lexeme part '%s'!", i+1, intro);
+                                                exit(ERROR_LEXICAL_PART);
+                                          }
                                     }
 
-                                    else
+                                    if(token[n+1] == ']')
                                     {
-                                          printf("Error in %d string! You should write a number in the expression '%s' contained inside [] after the sign '%s'.", i+1, arg, sign);
-                                          exit(ERROR_NUM_PART);
-                                    }
+                                          printf("Lexical error in %d line! Too many '%c'.", i+1, token[n+1]);
+                                          exit(ERROR_LEXICAL_PART);
+                                    }  
+                                    continue; // Переход к новому токену
+                              }
+                        }
+                        continue;
+                  }
 
-                                    //=====================================================================
-                              }                           
+                  else if(token[0] == ':' || token[strlen(token)-1] == ':' || strcmp(token, "]") == 0) // Т.е. это метка или учёт пробела в скобках
+                  {
+                        continue;
+                  }
+
+                  else // Остался вариант того, что это число
+                  {
+                        for(size_t j = 0; j < strlen(token); j++)
+                        {
+                              if(!(isdigit(token[j])))
+                              {
+                                    printf("Lexical error in %d line in the lexeme part '%s'!", i+1, token);
+                                    exit(ERROR_LEXICAL_PART);
+                              }
+                              continue;
                         }
                   }
-
-                  if(flag == 0)
-                  {
-                        printf("Lexical error in %d string at the position: %s\n", i+1, token);
-                        exit(ERROR_LEXICAL_UNIT);
-                  }
             }
-
-            i++; // Перехожу на новую строку
+      
+            i++; // Переход на новую строку
       }
 
-      if (hlt_count == 0)
-      {
-            printf("The command %s was not found.\n", cmds[4]);
-            exit(ERROR_HLT_COUNT);
-      }
-}
-
-//===========================================================================================================
-
-int tag_analysis(Processor* proc, const char* token, size_t string)
-{
-      char* copy_token = (char*)malloc(sizeof(char)*(strlen(token))); // Создаю копию, так как в tags_arr метки хранятся
-      strncpy(copy_token, token, strlen(token) + 1);                      // с ':' в конце
-      strcat(copy_token, ":");
-
-      for (size_t j = 0; j < (proc->strings_num)/2; j++) 
-      {
-            if (proc->tags_arr[j].num_tag > 1) // Метка должна встречаться один раз
+      if (hlt_counter == 0)
             {
-                  printf("Tag error in %d string! The tag '%s' is already in use.\n", string+1, proc->tags_arr[j].str_ptr);
-                  exit(ERROR_TAG_AGAIN);
+                  printf("Lexical error! The programm should contain 'hlt'.");
+                  exit(ERROR_HLT_COUNT);
             }
-
-            if (strcmp(proc->tags_arr[j].str_ptr, copy_token) == 0) // Проверка, что метка из данного jmp есть в программе
-            {
-                  return 1;
-            }
-      }
-
-      printf("Tag error in %d string! There is no tag '%s'.\n", string+1, copy_token);
-      exit(ERROR_TAG);
 }
 
 //===========================================================================================================

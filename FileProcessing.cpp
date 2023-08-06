@@ -1,7 +1,5 @@
 #include "FileProcessing.h"
 
-char PSN[] = {"POISON"};
-
 //===========================================================================================================
 
 int proc_ctor(Processor* proc, const char* filename)
@@ -100,47 +98,19 @@ void num_of_strings(Processor* proc)
 void fill_structs_arr(Processor* proc)
 {
       proc->structs_arr = (String*)calloc(proc->strings_num, sizeof(String));
-      proc->tags_arr    = (String*)calloc((proc->strings_num)/2, sizeof(String));
 
-      if(proc->structs_arr == nullptr || proc->tags_arr == nullptr)
+      if(proc->structs_arr == nullptr)
       {
             printf("Error code: %d\n", ERROR_STRUCTS_ARRAY_NULLPTR);
             exit(ERROR_STRUCTS_ARRAY_NULLPTR);
       }
 
-      for (size_t j = 0; j < (proc->strings_num)/2; j++)
-      {
-            proc->tags_arr[j].str_ptr = PSN;
-      }
-
       size_t counter = 0;
-      size_t k = 0;
 
       for(size_t i = 0; i < proc->strings_num; i++)
       {
             proc->structs_arr[i].str_ptr = proc->buffer_ptr + counter;
             proc->structs_arr[i].str_len = strlen(proc->buffer_ptr + counter);
-
-            if(strcmp(proc->structs_arr[i].str_ptr + proc->structs_arr[i].str_len - 1, ":") == 0)
-            {
-                  size_t flag = 0;
-                  for (size_t j = 0; j < (proc->strings_num)/2; j++)
-                  {
-                        if (strcmp(proc->tags_arr[j].str_ptr, proc->structs_arr[i].str_ptr) == 0)
-                        {
-                              proc->tags_arr[j].num_tag++;
-                              flag = 1;
-                        }
-                  }
-
-                  if (flag == 0)
-                  {
-                        proc->tags_arr[k].str_ptr = proc->buffer_ptr + counter;
-                        proc->tags_arr[k].str_len = strlen(proc->buffer_ptr + counter);
-                        proc->tags_arr[k].num_tag++;
-                        k++;
-                  }
-            }
 
             counter += proc->structs_arr[i].str_len + 1;
       }

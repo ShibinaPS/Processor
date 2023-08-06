@@ -28,7 +28,6 @@ typedef struct Processor
       size_t chars_num   = 0;
 
       String* structs_arr = nullptr;
-      String* tags_arr    = nullptr;
 
       int error_code     = 0;
 
@@ -43,16 +42,8 @@ enum ProcErrors
       ERROR_FREAD_COUNT             = 3,
       ERROR_STAT_SIZE               = 4,
       ERROR_STRUCTS_ARRAY_NULLPTR   = 5,
-      ERROR_ONE_STRING              = 6,
-      ERROR_POP_NUM                 = 7,
-      ERROR_LEXICAL_UNIT            = 8,
-      ERROR_HLT_COUNT               = 9,
-      ERROR_REG_PART                = 10,
-      ERROR_SIGN_PART               = 11,
-      ERROR_UNKNOWN_SIGN            = 12,
-      ERROR_NUM_PART                = 13,
-      ERROR_TAG_AGAIN               = 14,
-      ERROR_TAG                     = 15,
+      ERROR_LEXICAL_PART            = 6,
+      ERROR_HLT_COUNT               = 7,
 };
 
 //===========================================================================================================
