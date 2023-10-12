@@ -1,13 +1,14 @@
-#include "FileProcessing.h"
+#include "TextProcessing.h"
 
 //===========================================================================================================
 
 int main()
 {
-      Processor proc {};
+      struct TextProcessing tp   = {};
+      struct FlagProcessing fp = {};
 
-      if(proc_ctor(&proc, "Input.txt") == 0)
+      if(tp_ctor(&tp, &fp, "input.txt") == 0)
       {
-            proc_dtor(&proc);
+            tp_dtor(&tp, &fp);
       }
 }

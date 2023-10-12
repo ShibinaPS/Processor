@@ -1,1 +1,3 @@
-pop call main: in main: out
+push [ax+5] pop 1 jmp :ha 
+ha: jmp :poo 
+hlt
