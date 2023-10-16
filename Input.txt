@@ -1,3 +1,6 @@
-push [ax+5] pop 1 jmp :ha 
-ha: jmp :poo 
+push   [ax+5] 
+push                         5
+pop 
+jmp :ha 
+ha: 
 hlt

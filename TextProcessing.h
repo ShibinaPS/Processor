@@ -14,13 +14,14 @@
 
 //===========================================================================================================
 
-/*struct Source
-{
-      char* text;
-      int assemly_code;
-      char* CPU_code;
-      int error;      
-};*/
+      static const char* cmd[] = {"in", "out", "push", "pop", "hlt", 
+                        "add", "sub", "mul", "div"};
+
+      static const char* reg[] = {"ax", "bx", "cx", "dx"};
+
+      static const char* st_reg[] = {"[ax]", "[bx]", "[cx]", "[dx]"};
+
+      static const char* jmp[] = {"jmp", "je", "jge", "call"};
 
 //===========================================================================================================
 
@@ -65,7 +66,7 @@ enum ProcErrors
       ERROR_BUFFER_NULLPTR          = 3,
       ERROR_STR_ARR_NULLPTR         = 4,
       ERROR_LEXICAL_ANALYSIS        = 5,
-      ERROR_HLT_ABSENT              = 6,
+      ERROR_HLT_COUNT               = 6,
       ERROR_JMP_FLG_NUM             = 7,
       ERROR_NUM_TAGS                = 8,
       ERROR_FLAG                    = 9,      
@@ -102,6 +103,10 @@ void lexical_analysis(struct TextProcessing* tp, struct FlagProcessing* jump);
 //===========================================================================================================
 
 void tags_analysis(struct TextProcessing* tp, struct FlagProcessing* jump);
+
+//===========================================================================================================
+
+void HLT_count(struct TextProcessing* tp);
 
 //===========================================================================================================
 

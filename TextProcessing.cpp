@@ -1,4 +1,5 @@
 #include "TextProcessing.h"
+
 //===========================================================================================================
 
 #define STRCMP(val) strcmp(tp->str_arr[tp->cur_tok], val)
@@ -13,8 +14,10 @@ int tp_ctor(struct TextProcessing* tp, struct FlagProcessing* fp, const char* fi
       chars_buffer(tp);
       num_of_tok(tp);
       fill_str_arr(tp);
+      
       lexical_analysis(tp, fp);
       tags_analysis(tp, fp);
+      HLT_count(tp);
 
       // сначала лексика (есть ли слово в словаре, мб число), потом токенизация, 
       // потом проверка синтаксиса (не проверка текста, а проверка порядка слов в тексте),
@@ -91,7 +94,7 @@ void num_of_tok(struct TextProcessing* tp)
 
       const char* token = strtok(add_str, " \n\r");
 
-      for(tp->tok_num; token != NULL; token = strtok(NULL, " "), tp->tok_num++)
+      for(tp->tok_num; token != NULL; token = strtok(NULL, " \n\r"), tp->tok_num++)
       {
             ;
       }
@@ -121,16 +124,6 @@ int fill_str_arr(struct TextProcessing* tp)
 
 //===========================================================================================================
 
-const char* cmd[] = {"in", "out", "push", "pop", "hlt", 
-                     "add", "sub", "mul", "div"};
-
-const char* reg[] = {"ax", "bx", "cx", "dx"};
-
-const char* st_reg[] = {"[ax]", "[bx]", "[cx]", "[dx]"};
-
-const char* jmp[] = {"jmp", "je", "jge", "call"};
-
-//===========================================================================================================
 void lexical_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
 {
       for(tp->cur_tok; tp->cur_tok < tp->tok_num; tp->cur_tok++)
@@ -408,6 +401,25 @@ void tags_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
                   printf("Error in flag '%s'. Such tag does not exist!\n", flag);
                   exit(ERROR_FLAG);
             }
+      }
+}
+
+//===========================================================================================================
+
+void HLT_count(struct TextProcessing* tp)
+{
+      for(size_t i = 0; i < tp->tok_num; i++)
+      {
+            if(strcmp(tp->str_arr[i], "hlt") == 0)
+            {
+                  tp->hlt_count++;
+            }
+      }
+
+      if(tp->hlt_count < 1)
+      {
+            printf("Error! The prgramm should contains at least one 'hlt'!\n");
+            exit(ERROR_HLT_COUNT);
       }
 }
 
