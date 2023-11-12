@@ -1,0 +1,92 @@
+in
+in
+in
+
+pop cx
+pop bx
+pop ax
+
+push 0
+push ax
+je :LinSolver
+
+push 0
+push bx
+push bx
+mul
+push 4
+push cx
+push ax
+mul
+mul
+sub
+jg :NoRoots
+
+push 0
+push dx
+je :OneRoot
+
+push 0
+push dx
+jl :TwoRoots
+
+
+TwoRoots:
+push bx
+minus
+push dx
+sqrt
+add
+push 2
+push ax
+mul
+div
+out
+
+push bx
+minus
+push dx
+sqrt
+sub
+push 2
+push ax
+mul
+div
+out
+hlt
+
+
+LinSolver:
+push bx
+push 0
+je :NoRoots
+push cx
+minus
+push bx
+div
+out
+hlt
+
+
+NoRoots:
+push 0
+push cx
+je :EndlAmntRoots
+hlt
+
+
+EndlAmntRoots:
+push 12345
+out
+hlt
+
+
+OneRoot:
+push bx
+minus
+push 2
+push ax
+mul
+div
+out
+hlt

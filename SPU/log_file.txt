@@ -1,0 +1,1251 @@
+---------------------- Stack ----------------------
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 10;
+size      = 0;
+data_hash = [2728364376718745570];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	data[0001] = 0             <- POISON
+	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	data[0004] = 0             <- POISON
+	data[0005] = 0             <- POISON
+	data[0006] = 0             <- POISON
+	data[0007] = 0             <- POISON
+	data[0008] = 0             <- POISON
+	data[0009] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 10;
+size      = 1;
+data_hash = [82724119869816758];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 1	data[0001] = 0             <- POISON
+	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	data[0004] = 0             <- POISON
+	data[0005] = 0             <- POISON
+	data[0006] = 0             <- POISON
+	data[0007] = 0             <- POISON
+	data[0008] = 0             <- POISON
+	data[0009] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 10;
+size      = 2;
+data_hash = [2554609404225035];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 1	data[0001] = 2	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	data[0004] = 0             <- POISON
+	data[0005] = 0             <- POISON
+	data[0006] = 0             <- POISON
+	data[0007] = 0             <- POISON
+	data[0008] = 0             <- POISON
+	data[0009] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 10;
+size      = 3;
+data_hash = [125017206992219];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 1	data[0001] = 2	data[0002] = -3	data[0003] = 0             <- POISON
+	data[0004] = 0             <- POISON
+	data[0005] = 0             <- POISON
+	data[0006] = 0             <- POISON
+	data[0007] = 0             <- POISON
+	data[0008] = 0             <- POISON
+	data[0009] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 5;
+size      = 2;
+data_hash = [65274410];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 1	data[0001] = 2	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	data[0004] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57038];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 1	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1939259];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 1	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1940348];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 2	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 3;
+data_hash = [59249];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 2	data[0002] = 2	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1940348];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 2	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1942526];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 4	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 3;
+data_hash = [61493];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 4	data[0002] = 4	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 8;
+size      = 4;
+data_hash = [7431460985];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 4	data[0002] = 4	data[0003] = -3	data[0004] = 0             <- POISON
+	data[0005] = 0             <- POISON
+	data[0006] = 0             <- POISON
+	data[0007] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 8;
+size      = 5;
+data_hash = [5382908237];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 4	data[0002] = 4	data[0003] = -3	data[0004] = 1	data[0005] = 0             <- POISON
+	data[0006] = 0             <- POISON
+	data[0007] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 8;
+size      = 4;
+data_hash = [7431460985];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 4	data[0002] = 4	data[0003] = -3	data[0004] = 0             <- POISON
+	data[0005] = 0             <- POISON
+	data[0006] = 0             <- POISON
+	data[0007] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 8;
+size      = 3;
+data_hash = [75038445353];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 4	data[0002] = 4	data[0003] = 0             <- POISON
+	data[0004] = 0             <- POISON
+	data[0005] = 0             <- POISON
+	data[0006] = 0             <- POISON
+	data[0007] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 8;
+size      = 4;
+data_hash = [7431460985];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 4	data[0002] = 4	data[0003] = -3	data[0004] = 0             <- POISON
+	data[0005] = 0             <- POISON
+	data[0006] = 0             <- POISON
+	data[0007] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 8;
+size      = 3;
+data_hash = [75038445353];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 4	data[0002] = 4	data[0003] = 0             <- POISON
+	data[0004] = 0             <- POISON
+	data[0005] = 0             <- POISON
+	data[0006] = 0             <- POISON
+	data[0007] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1942526];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 4	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 3;
+data_hash = [60965];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 4	data[0002] = -12	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1942526];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 4	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1955594];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 16	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1955594];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 16	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57533];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 16	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [2513162];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 16	data[0001] = 0	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57533];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 16	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57071];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 2	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [56939];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -2	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1883720];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -2	data[0001] = 16	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [56939];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -2	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1870652];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -2	data[0001] = 4	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [56939];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -2	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57071];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 2	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [2012222];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 2	data[0001] = 2	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 3;
+data_hash = [131090];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 2	data[0001] = 2	data[0002] = 1	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [2012222];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 2	data[0001] = 2	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57071];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 2	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [2012222];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 2	data[0001] = 2	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57071];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 2	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57038];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 1	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [57071];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 2	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [56939];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -2	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1883720];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -2	data[0001] = 16	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [56939];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -2	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1870652];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -2	data[0001] = 4	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [56939];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -2	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [56807];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -6	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1724726];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -6	data[0001] = 2	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 3;
+data_hash = [-156406];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -6	data[0001] = 2	data[0002] = 1	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1724726];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -6	data[0001] = 2	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [56807];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -6	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 4;
+size      = 2;
+data_hash = [1724726];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -6	data[0001] = 2	data[0002] = 0             <- POISON
+	data[0003] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [56807];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -6	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 2;
+size      = 1;
+data_hash = [56906];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = -3	data[0001] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+{
+[STK_LFT_CANARY] = 233496045
+capacity  = 1;
+size      = 0;
+data_hash = [57005];
+data      = 00850D04;
+	{
+	[DATA_LFT_CANARY] = 233692845
+	data[0000] = 0             <- POISON
+	[DATA_RGT_CANARY] = 233692845
+	}
+[STK_RGT_CANARY] = 233496045
+}
+
+----------------------------------------------------
+
+Stack is empty...

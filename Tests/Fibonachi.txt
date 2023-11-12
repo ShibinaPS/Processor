@@ -1,0 +1,46 @@
+in
+
+push 1
+push 1
+push 0
+
+pop bx
+pop cx
+pop dx
+
+pop ax
+
+Fib:
+push dx
+push dx
+sub
+push bx
+add
+pop dx
+push bx
+push cx
+add
+pop bx
+push cx
+push cx
+sub
+push dx
+add
+pop cx
+push ax
+push 1
+sub
+pop ax
+
+push 0
+push ax
+jne :Fib
+push 0
+push ax
+je :Answer
+
+
+Answer:
+push bx
+out
+hlt

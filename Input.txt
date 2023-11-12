@@ -1,6 +1,0 @@
-push   [ax+5] 
-push                         5
-pop 
-jmp :ha 
-ha: 
-hlt

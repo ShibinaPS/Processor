@@ -2,37 +2,54 @@
 
 //===========================================================================================================
 
-#define STRCMP(val) strcmp(tp->str_arr[tp->cur_tok], val)
+#define STRCMP(val) strcmp(tp->tok_arr[tp->cur_n], val)
 #define CHECK(flag) if(flag == true)  continue;
-#define TOKEN       tp->str_arr[tp->cur_tok]  
+#define TOKEN       tp->tok_arr[tp->cur_n]  
 
 //===========================================================================================================
-int tp_ctor(struct TextProcessing* tp, struct FlagProcessing* fp, const char* filename)
+void tp_ctor(struct TextProcessing* tp, struct FlagProcessing* fp, const char* filename)
 {
+      strcpy(tp->asmbl_filename, filename);
+
       file_open(tp, filename);
+      if(tp->error != 0)
+      {
+            return;
+      }
+
       num_of_chars(tp, filename);
+
       chars_buffer(tp);
+      if(tp->error != 0)
+      {
+            return;
+      }
+
       num_of_tok(tp);
-      fill_str_arr(tp);
+      
+      fill_tok_arr(tp);
       
       lexical_analysis(tp, fp);
+      if(tp->error != 0)
+      {
+            printf("Lexical error in assembler code.\n");
+            return;
+      }
+
       tags_analysis(tp, fp);
+      if(tp->error != 0)
+      {
+            printf("Flag error in assembler code.\n");
+            return;
+      }
+
       HLT_count(tp);
+      if(tp->error != 0)
+      {
+            return;
+      }
 
-      // сначала лексика (есть ли слово в словаре, мб число), потом токенизация, 
-      // потом проверка синтаксиса (не проверка текста, а проверка порядка слов в тексте),
-      // потом проверка меток, 
-      // ТОЛЬКО ПОТОМ БАЙТ КОД
-
-      return 0;
 }
-
-// вид структуры из массива структур (по-русски --- токенов)
-// char text[MAX_WORD_LEN] = {0};
-// assemly_code
-// CPU_code
-// error
-
 //===========================================================================================================
 
 void file_open(struct TextProcessing* tp, const char* filename)
@@ -42,7 +59,8 @@ void file_open(struct TextProcessing* tp, const char* filename)
       if (tp->mainfile == nullptr)
       {
             printf("Error with file opening in Assembler!\n");
-            exit(ERROR_MAINFILE_OPEN);
+            tp->error = ERROR_MAINFILE_OPEN;
+            return;
       }
 }
 
@@ -52,15 +70,7 @@ void num_of_chars(struct TextProcessing* tp, const char* filename)
 {
       struct stat buf{};
       stat(filename, &buf); 
-
-      if(buf.st_size <= 0)
-      {
-            printf("Error in stat size!\n");
-            exit(ERROR_STAT_SIZE);
-      }
-
       tp->chars_num = buf.st_size + 1;
-      return;
 }
 
 //===========================================================================================================
@@ -69,19 +79,18 @@ void chars_buffer(struct TextProcessing* tp)
 {
       tp->buffer_ptr = (char*)calloc(tp->chars_num, sizeof(char));
 
-      if (tp->buffer_ptr == nullptr)
-      {
-            printf("Error buffer is nullptr!\n");
-            exit(ERROR_BUFFER_NULLPTR);
-      }
-
       fread(tp->buffer_ptr, sizeof(char), tp->chars_num - 1, tp->mainfile);
 
       tp->buffer_ptr[tp->chars_num - 1] = '\0';
 
       fclose(tp->mainfile);
 
-      return;
+      if((tp->buffer_ptr[0] == '\0'))
+      {
+            printf("File is empty!\n");
+            tp->error = ERROR_EMPTY_MAINFILE;
+            return;
+      }
 }
 
 //===========================================================================================================
@@ -104,29 +113,29 @@ void num_of_tok(struct TextProcessing* tp)
 
 //===========================================================================================================
 
-int fill_str_arr(struct TextProcessing* tp)
+void fill_tok_arr(struct TextProcessing* tp)
 {
-      tp->str_arr = (char**)calloc(tp->chars_num, sizeof(char*));
+      tp->tok_arr = (char**)calloc(tp->chars_num, sizeof(char*));
 
       char* string = strtok(tp->buffer_ptr, " \n\r");
 
       for(size_t i = 0; string != NULL; string = strtok(NULL, " \n\r"), i++)
       {
-            tp->str_arr[i] = string;
+            tp->tok_arr[i] = string;
       }
 
       /*for(size_t i = 0; i<tp->tok_num; i++)
       {
-            printf("%s\n", tp->str_arr[i]);
-      }
-      */
+            printf("%s\n", tp->tok_arr[i]);
+      }*/
+      
 }
 
 //===========================================================================================================
 
 void lexical_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
 {
-      for(tp->cur_tok; tp->cur_tok < tp->tok_num; tp->cur_tok++)
+      for(; tp->cur_n < tp->tok_num; tp->cur_n++)
       {
             bool flag = false;
             // Checking cmd, reg, [reg], jmp
@@ -177,12 +186,12 @@ void lexical_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
             CHECK(flag);
 
             // Checking numbers (+ && -)
-            size_t num_err   = 0;
-            size_t dots_num  = 0;
+            size_t num_err  = 0;
+            size_t dots_num = 0;
 
             for(size_t cur_ind = 0; cur_ind < strlen(TOKEN); cur_ind++)
             {
-                  if((cur_ind == 0) && (TOKEN[0] == '-'))
+                  if((cur_ind == 0) && (TOKEN[0] == '-') && (isdigit(TOKEN[cur_ind + 1]) != 0))
                   {
                         continue;
                   }
@@ -192,7 +201,7 @@ void lexical_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
                         continue;
                   }
 
-                  if((TOKEN[cur_ind] == '.'))
+                  if((TOKEN[cur_ind] == '.') && (isdigit(TOKEN[cur_ind + 1]) != 0))
                   {
                         dots_num++;
                         continue;
@@ -207,12 +216,11 @@ void lexical_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
 
             if(num_err == 0 && dots_num < 2) // It means that we have met a number
             {
-                  // flag = true;
                   continue;
             }
 
             // Checking [number]
-            if((TOKEN[0] == '[') && (TOKEN[strlen(TOKEN) - 1] == ']') && (TOKEN[2] != 'x'))
+            if((TOKEN[0] == '[') && (TOKEN[strlen(TOKEN) - 1] == ']') && (TOKEN[2] != 'x') && (strlen(TOKEN) > 2))
             {
                   dots_num          = 0;
                   size_t minus_num  = 0;
@@ -224,7 +232,7 @@ void lexical_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
                               continue;
                         }
 
-                        if((TOKEN[i] == '.'))
+                        if((TOKEN[i] == '.') && (isdigit(TOKEN[i + 1]) != 0))
                         {
                               dots_num++;
                               continue;
@@ -245,7 +253,6 @@ void lexical_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
 
                   if(minus_num == 0 && st_num_err == 0 && dots_num < 2)
                   {
-                        // flag = true;
                         continue;
                   }
             }
@@ -256,9 +263,10 @@ void lexical_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
             size_t st_reg_num_err = 0;
 
             if((TOKEN[0] == '[') && (TOKEN[strlen(TOKEN) - 1] == ']') && 
-            (TOKEN[1] == 'a' || TOKEN[1] == 'b' || TOKEN[1] == 'c' || TOKEN[1] == 'd') && (TOKEN[2] == 'x'))
+            (TOKEN[1] == 'a' || TOKEN[1] == 'b' || TOKEN[1] == 'c' || TOKEN[1] == 'd') && (TOKEN[2] == 'x')
+            && (strlen(TOKEN) > 5))
             {
-                  for(size_t j = 1; j < strlen(TOKEN) - 1; j++)
+                  for(size_t j = 3; j < strlen(TOKEN) - 1; j++)
                   {
                         if((j == 3) && (TOKEN[j] == '+'))
                         {
@@ -271,18 +279,18 @@ void lexical_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
                               break;
                         }
 
-                        if((j > 3) && (isdigit(TOKEN[j])))
+                        if(isdigit(TOKEN[j]))
                         {
                               continue;
                         }
 
-                        if((j > 3) && (isdigit(TOKEN[j])) && (TOKEN[j] == '.'))
+                        if(isdigit(TOKEN[j+1]) && (TOKEN[j] == '.'))
                         {
                               dots_num++;
                               continue;
                         }
 
-                        if((j > 3) && (isdigit(TOKEN[j]) == 0))
+                        if(isdigit(TOKEN[j]) == 0)
                         {
                               st_reg_num_err++;
                               break;
@@ -298,18 +306,33 @@ void lexical_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
             // Checking tags
             if(TOKEN[strlen(TOKEN) - 1] == ':')
             {
+                  if(TOKEN[0] == ':')
+                  {
+                        printf("Error in lexeme '%s'\n", TOKEN);
+                        tp->error = ERROR_FLAG;
+                        return;
+                  }
+
                   fp->tags_num++;
                   continue;
             }
 
-            if(TOKEN[0] == ':')
+            else if(TOKEN[0] == ':')
             {
+                  if(TOKEN[strlen(TOKEN) - 1] == ':')
+                  {
+                        printf("Error in lexeme '%s'\n", TOKEN);
+                        tp->error = ERROR_FLAG;
+                        return;
+                  }
+
                   fp->flags_num++;
                   continue;
             }
 
-            printf("Error in %d token '%s'!\n", tp->cur_tok + 1, TOKEN);
-            exit(ERROR_LEXICAL_ANALYSIS);
+            printf("Error in %lu token '%s'!\n", tp->cur_n + 1, TOKEN);
+            tp->error = ERROR_LEXICAL_ANALYSIS;
+            return;
       }
 }
 
@@ -319,45 +342,66 @@ void tags_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
 {
       // Checking an equality of jumps and flags ||
       // absence of jums or flags
-      if((fp->jmps_num != fp->flags_num) || 
-         (fp->flags_num == 0 && fp->jmps_num != 0) || 
-         (fp->flags_num != 0 && fp->jmps_num == 0))
+      
+      if((fp->jmps_num != fp->flags_num))
       {
             printf("Error! Different number of jumps and flags!\n");
-            exit(ERROR_JMP_FLG_NUM);
+            tp->error = ERROR_JMP_FLG_NUM;
+            return;
+      }
+
+      // Если джампов нет в программе => прекращение работы функции
+      if(fp->jmps_num == 0)
+      {
+            return;
       }
 
       // Orginizing all tags and flags in tags_arr and flags_arr
-      fp->tags_arr = (Flag*)calloc(fp->tags_num, sizeof(Flag*));
-      fp->flags_arr = (Flag*)calloc(fp->flags_num, sizeof(Flag*));
+      fp->tags_arr  = (Flag*)calloc(fp->tags_num, sizeof(Flag));
+      if (fp->tags_arr == nullptr) 
+      {
+            tp->error = ERROR_TAG_CALLOC;
+            return;
+      }
 
+      fp->flags_arr = (Flag*)calloc(fp->flags_num, sizeof(Flag));
+      if (fp->flags_arr == nullptr) 
+      {
+            tp->error = ERROR_FLAG_CALLOC;
+            return;
+      }
+
+      // заполняю поля массива структур
       for(size_t i = 0; i < tp->tok_num; i++)
       {
-            if(tp->str_arr[i][strlen(tp->str_arr[i])-1] == ':')
+            if(tp->tok_arr[i][strlen(tp->tok_arr[i])-1] == ':')
             {
-                  // printf("%s\n", TOKEN);
-                  strcpy(fp->tags_arr[fp->cur_tag].word, tp->str_arr[i]);
-                  // printf("%s\n", fp->tags_arr[fp->cur_tag].word);
+                  strcpy(fp->tags_arr[fp->cur_tag].word, tp->tok_arr[i]);
+                  fp->tags_arr[fp->cur_tag].index = i;
                   fp->cur_tag++;
-                  // printf("%d\n", fp->cur_tag);
             }
 
-            else if(tp->str_arr[i][0] == ':')
+            else if(tp->tok_arr[i][0] == ':')
             {
-                  strcpy(fp->flags_arr[fp->cur_flag].word, tp->str_arr[i]);
+                  strcpy(fp->flags_arr[fp->cur_flag].word, tp->tok_arr[i]);
                   fp->cur_flag++;
             }
       }
+      // for(size_t m = 0; m < fp->flags_num; m++)
+      // {
+      //       printf("%s\n", fp->flags_arr[m].word);
+      // }
 
-      /*for(size_t m = 0; m < fp->flags_num; m++)
-      {
-            printf("%s\n", fp->flags_arr[m].word);
-      }*/
+      // for(size_t m = 0; m < fp->tags_num; m++)
+      // {
+      //       printf("%s ", fp->tags_arr[m].word);
+      // }
+      // printf("\n");
+      // for(size_t m = 0; m < fp->tags_num; m++)
+      // {
+      //       printf("%d  ", fp->tags_arr[m].index);
+      // }
 
-      /*for(size_t m = 0; m < fp->tags_num; m++)
-      {
-            printf("%s\n", fp->tags_arr[m].word);
-      }*/
 
 
       // Checking twice using tags
@@ -368,27 +412,25 @@ void tags_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
                   if((strcmp(fp->tags_arr[i].word, fp->tags_arr[j].word) == 0) && (i != j))
                   {
                         printf("Error twice using tag '%s'\n", fp->tags_arr[i].word);
-                        exit(ERROR_NUM_TAGS);
+                        tp->error = ERROR_NUM_TAGS;
+                        return;
                   }
             }
       }
 
-      //Checking the existence of tag for flag
+      //Checking the existance of tag for flag
       for(size_t i = 0; i < fp->flags_num; i++)
       {     
             size_t n = 0;
 
             char flag[MAX_WORD_LEN] = {0};
             strcpy(flag, fp->flags_arr[i].word + 1);
-            // printf("%s\n", flag);
 
             for(size_t j = 0; j < fp->tags_num; j++)
             {
                   char tag[MAX_WORD_LEN] = {0};
                   strncpy(tag, fp->tags_arr[j].word, strlen(fp->tags_arr[j].word)-1);
                   // printf("%s\n", tag);
-
-                  // printf("%d\n", strcmp(flag, tag));
 
                   if(strcmp(flag, tag) == 0)
                   {
@@ -399,9 +441,47 @@ void tags_analysis(struct TextProcessing* tp, struct FlagProcessing* fp)
             if(n == 0)
             {
                   printf("Error in flag '%s'. Such tag does not exist!\n", flag);
-                  exit(ERROR_FLAG);
+                  tp->error = ERROR_FLAG;
+                  return;
             }
       }
+
+      // Run the tags_arr and checking indexes to delete labels
+
+      fp->new_tags_arr = (Flag*)calloc(fp->tags_num, sizeof(Flag));
+      if(fp->new_tags_arr == nullptr)
+      {
+            tp->error = ERROR_NEW_TAG_CALLOC;
+            return;
+      }
+
+      strcpy(fp->new_tags_arr[0].word, fp->tags_arr[0].word);
+      fp->new_tags_arr[0].index = fp->tags_arr[0].index;
+
+      for(size_t i = 0; i < fp->tags_num-1; i++)
+      {
+            if(fp->tags_arr[i+1].index - fp->tags_arr[i].index == 1)
+            {
+                  strcpy(fp->new_tags_arr[i+1].word, fp->tags_arr[i+1].word);
+                  fp->new_tags_arr[i+1].index = fp->tags_arr[i+1].index;
+            }
+
+            else
+            {
+                  strcpy(fp->new_tags_arr[i+1].word, fp->tags_arr[i+1].word);
+                  fp->new_tags_arr[i+1].index = fp->tags_arr[i+1].index - (i+1);
+            }     
+      }
+
+      /*for(size_t i = 0; i < fp->tags_num; i++)
+      {
+            printf("%s ", fp->new_tags_arr[i].word);
+      }
+      printf("\n");
+      for(size_t i = 0; i < fp->tags_num; i++)
+      {
+            printf("%d  ", fp->new_tags_arr[i].index);
+      }*/
 }
 
 //===========================================================================================================
@@ -410,7 +490,7 @@ void HLT_count(struct TextProcessing* tp)
 {
       for(size_t i = 0; i < tp->tok_num; i++)
       {
-            if(strcmp(tp->str_arr[i], "hlt") == 0)
+            if(strcmp(tp->tok_arr[i], "hlt") == 0)
             {
                   tp->hlt_count++;
             }
@@ -418,18 +498,23 @@ void HLT_count(struct TextProcessing* tp)
 
       if(tp->hlt_count < 1)
       {
-            printf("Error! The prgramm should contains at least one 'hlt'!\n");
-            exit(ERROR_HLT_COUNT);
+            printf("HLT error! There is no the end of the programm!\n");
+            tp->error = ERROR_HLT_COUNT;
+            return;
       }
 }
 
 //===========================================================================================================
+
 void tp_dtor(struct TextProcessing* tp, struct FlagProcessing* fp)
 {
       free(tp->buffer_ptr);
-      free(tp->str_arr);
+      free(tp->tok_arr);
       free(fp->tags_arr);
       free(fp->flags_arr);
+      free(fp->new_tags_arr);
 }
 
 //===========================================================================================================
+
+#undef STRCMP
